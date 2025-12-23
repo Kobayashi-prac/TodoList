@@ -1,18 +1,18 @@
 //
-//  toDoListView.swift
+//  WeekdayView.swift
 //  TodoList
 //
-//  Created by swiftUI on 2025/12/22.
+//  Created by swiftUI on 2025/12/23.
 //
 
 import SwiftUI
 
-struct toDoListView: View {
+struct WeekdayView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    toDoListView()
+    WeekdayView()
 }
