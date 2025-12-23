@@ -10,7 +10,7 @@ import SwiftUI
 struct MonthsView: View {
     
     /// 一週間の日付配列
-    let columns = Array(repeating: GridItem(.flexible()), count: 7)
+    let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 7)
 
     /// 1ヶ月
     let days = Array(1..<31)
@@ -19,7 +19,7 @@ struct MonthsView: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 3) {
+            LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(days, id: \.self) { date in
                     ZStack {
                         // isPressedの通知を受け取るのは押されたボタンだけ
@@ -30,12 +30,20 @@ struct MonthsView: View {
                         } label: {
                             // この引数はViewに準拠していればなんでも返して良い
                             Text("")
-                                .frame(width: 55, height: 50.0)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
+                        .frame(height: 100)
                         .buttonStyle(pressedButtonStyle())
-                        
-                        Text("\(date)")
+                            
+                        VStack {
+                            HStack {
+                                Text("\(date)")
+                                Spacer()
+                            }
+                            Spacer()
+                        }
                     }
+                    .border(Color.black.opacity(0.3), width: 1)
                 }
             }
         }

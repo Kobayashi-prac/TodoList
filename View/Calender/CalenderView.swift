@@ -19,11 +19,15 @@ struct CalenderView: View {
             ZStack {
                 VStack {
                     WeekdayView()
+                    
+                    Divider()
+                        .border(Color.black, width: 0)
+                    
                     MonthsView(isVisibleTodoList: $isVisibleTodoList)
                 }
                 if isVisibleTodoList {
                     ToDoListView()
-                        .transition(.move(edge: .trailing))
+                        .transition(.move(edge: .bottom))
                 }
             }
         }
