@@ -16,66 +16,47 @@ struct CalenderView: View {
     /// 1ヶ月
     let days = Array(1..<31)
     
-    @State var backgroundColor: Color = .white
-    @State var isPresented: Bool = false
-    
     var body: some View {
-
+        
         NavigationStack {
             
             VStack {
-                
-                // LazyVGridを使う
-                LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(weekdays, id: \.self) { day in
-                        Text("\(day)")
-                    }
-                }
-                
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 3) {
-                        ForEach(days, id: \.self) { date in
-                            ZStack {
-                                
-                                Button {
-                                    backgroundColor = .gray
-//                                    isPresented = true
-                                } label: {
-                                    Text("")
-                                        .frame(width: 55, height: 100.0)
-                                }
-                                .buttonStyle(pressedButtonStyle())
-
-                                Text("\(date)")
-                                
-                            }
-                        }
-                    }
-                }
-                .fullScreenCover(isPresented: $isPresented) {
-                    EmptyView()
-                }
+                weekdayView
+                monthView
             }
         }
     }
     
-    /// ボタンが押された時のButtonStyle
-    struct pressedButtonStyle: ButtonStyle {
-        
-        var backgroundColor: Color = .gray
-        var pressedBackgroundColor: Color = .white
-        
-        func makeBody(configuration: Configuration) -> some View {
-            configuration.label
-                .background(backgroundColor(isPressed: configuration.isPressed))
+    var weekdayView: some View {
+        // LazyVGridを使う
+        LazyVGrid(columns: columns, spacing: 0) {
+            ForEach(weekdays, id: \.self) { day in
+                Text("\(day)")
+            }
         }
-        
-        func backgroundColor(isPressed: Bool) -> Color {
-            return isPressed ? backgroundColor : pressedBackgroundColor
-        }
-        
     }
-
+    
+    var monthView: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 3) {
+                ForEach(days, id: \.self) { date in
+                    ZStack {
+                        // isPressedの通知を受け取るのは押されたボタンだけ
+                        Button {
+                            print("pressedButton")
+                        } label: {
+                            // この引数はViewに準拠していればなんでも返して良い
+                            Text("")
+                                .frame(width: 55, height: 50.0)
+                        }
+                        .buttonStyle(pressedButtonStyle())
+                        
+                        Text("\(date)")
+                    }
+                }
+            }
+        }
+    }
 }
 
 #Preview {
