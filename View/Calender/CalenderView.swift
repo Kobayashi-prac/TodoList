@@ -17,14 +17,18 @@ struct CalenderView: View {
         NavigationStack {
             
             ZStack {
-                VStack {
+                VStack(spacing: 0) {
+                    
+                    MonthView()
+                    
                     WeekdayView()
                     
-                    Divider()
-                        .border(Color.black, width: 0)
+                    ForEach(1...2, id: \.self) { i in
+                            DateView(isVisibleTodoList: $isVisibleTodoList)
+                    }
                     
-                    MonthsView(isVisibleTodoList: $isVisibleTodoList)
                 }
+                // .move(edge: .bottom)の場合、fullScreenCoverでも同様のアニメーション
                 if isVisibleTodoList {
                     ToDoListView()
                         .transition(.move(edge: .bottom))
