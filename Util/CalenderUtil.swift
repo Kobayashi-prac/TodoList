@@ -9,7 +9,10 @@ import Foundation
 
 class CalenderUtil {
     
+    static let shared = CalenderUtil()
     private let myCalendar = Calendar(identifier: .gregorian)
+    
+    private init() {}
     
     /// 月初の日付を返す
     ///- Parameters:
@@ -19,8 +22,8 @@ class CalenderUtil {
         guard let year = year, let month = month else {
             return nil
         }
-        var components = DateComponents(year: year, month: month, day: 1)
-        var firstDay = myCalendar.date(from: components)
+        let components = DateComponents(year: year, month: month, day: 1)
+        let firstDay = myCalendar.date(from: components)
         return firstDay
     }
     
@@ -31,7 +34,7 @@ class CalenderUtil {
         guard let firstDay = firstDay else {
             return .zero
         }
-        var weekday = myCalendar.component(.weekday, from: firstDay)
+        let weekday = myCalendar.component(.weekday, from: firstDay)
         return weekday
     }
     
@@ -42,7 +45,7 @@ class CalenderUtil {
         guard let date = date else {
             return nil
         }
-        var range = myCalendar.range(of: .day, in: .month, for: date)
+        let range = myCalendar.range(of: .day, in: .month, for: date)
         return range
     }
     
